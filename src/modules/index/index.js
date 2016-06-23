@@ -4,28 +4,32 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import App from './App'
 
-import Home from './Home'
-
-import Hello from 'components/Hello'
-
-import Demo from 'pages/Demo'
-import Pulldown from 'pages/Pulldown'
+import NewsView from 'components/NewsView'
+import ItemView from 'components/ItemView'
+import UserView from 'components/UserView'
 
 Vue.use(Router)
-Vue.config.devtools = true
 
 const router = new Router()
 
 router.map({
-  '/': {
-    component: Home
+  '/news/:page': {
+    component: NewsView
   },
-  '/demo': {
-    component: Demo
+  '/user/:id': {
+    component: UserView
   },
-  '/demo/pulldown': {
-    component: Pulldown
+  '/item/:id': {
+    component: ItemView
   }
+})
+
+router.beforeEach(function () {
+  window.scrollTo(0, 0)
+})
+
+router.redirect({
+  '*': '/news/1'
 })
 
 router.start(App, '#app')
